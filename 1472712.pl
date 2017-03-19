@@ -12,5 +12,12 @@ xreverse([Front|Rest], R, Accum) :- xreverse(Rest, R, [Front|Accum]).
 
 /*	Question 2
 */
-xunique([],O) :- [].
+xunique(L,O) :- xunique(L, O, []).
+xunique([], O, O).
+xunique([F|R], O, Accum) :- member(F, Accum), xunique(R, O, Accum). 
+xunique([F|R], O, Accum) :- \+ member(F, Accum), append(Accum, [F], L), xunique(R, O, L).
+
+/* Question 3
+*/
+
 
