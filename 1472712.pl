@@ -12,4 +12,5 @@ xreverse([Front|Rest], R, Accum) :- xreverse(Rest, R, [Front|Accum]).
 
 /*	Question 2
 */
+xunique([],O) :- [].
 
