@@ -27,6 +27,18 @@ removeLast(L, L1, Last) :- xreverse(L, [F|R]), xreverse(R,L1), Last = F.
 
 /*	Question 5
 */
+node(a).
+node(b).
+node(c).
+node(d).
+node(e).
+
+edge(a,b).
+edge(b,c).
+edge(c,a).
+edge(d,a).
+edge(a,e).
+
 clique(L) :- findall(X,node(X),Nodes), xsubset(L,Nodes), allConnected(L).
 
 xsubset([], _).
@@ -37,6 +49,11 @@ xappend([H|T], L, [H|R]) :- xappend(T, L, R).
 
 /*	Question 5.1
 */
+allConnected([]).
+allConnected([A|L]) :- connect(A, L), allConnected(L).
+
+connect(A, []).
+connect(A, [F|R]) :- (edge(A, F) ; edge(F, A)) , connect(A, R).
 
 /*	Question 5.2
 */
