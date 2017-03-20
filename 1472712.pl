@@ -27,18 +27,6 @@ removeLast(L, L1, Last) :- xreverse(L, [F|R]), xreverse(R,L1), Last = F.
 
 /*	Question 5
 */
-node(a).
-node(b).
-node(c).
-node(d).
-node(e).
-
-edge(a,b).
-edge(b,c).
-edge(c,a).
-edge(d,a).
-edge(a,e).
-
 clique(L) :- findall(X,node(X),Nodes), xsubset(L,Nodes), allConnected(L).
 
 xsubset([], _).
@@ -52,8 +40,14 @@ xappend([H|T], L, [H|R]) :- xappend(T, L, R).
 allConnected([]).
 allConnected([A|L]) :- connect(A, L), allConnected(L).
 
-connect(A, []).
+connect(_, []).
 connect(A, [F|R]) :- (edge(A, F) ; edge(F, A)) , connect(A, R).
 
 /*	Question 5.2
 */
+maxclique(N, Cliques) :- findall(L, (clique(L) , length(L, N)), L1), X is N+1, findall(L, (clique(L) , length(L, X)), L2) , contained(L1, L2, Cliques).
+
+contained([F|R], L2, Cliques) :- (issubset(F, L2) -> contained(R, L2, Cliques) ; L is Cliques, append(L, [F], Cliques)).
+
+issubset(A, [F|_]) :- xsubset(A, F).
+issubset(A, [_|R]) :- issubset(A, R).
