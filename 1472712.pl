@@ -19,5 +19,5 @@ xunique([F|R], O, Accum) :- \+ member(F, Accum), append(Accum, [F], L), xunique(
 
 /* Question 3
 */
-
+xdiff(L1, L2, L):- subtract(L1, L2, L3), xunique(L3, L).
 
