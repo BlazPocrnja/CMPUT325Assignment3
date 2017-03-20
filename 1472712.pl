@@ -45,9 +45,7 @@ connect(A, [F|R]) :- (edge(A, F) ; edge(F, A)) , connect(A, R).
 
 /*	Question 5.2
 */
-maxclique(N, Cliques) :- findall(L, (clique(L) , length(L, N)), L1), X is N+1, findall(L, (clique(L) , length(L, X)), L2) , contained(L1, L2, Cliques).
-
-contained([F|R], L2, Cliques) :- (issubset(F, L2) -> contained(R, L2, Cliques) ; L is Cliques, append(L, [F], Cliques)).
-
 issubset(A, [F|_]) :- xsubset(A, F).
 issubset(A, [_|R]) :- issubset(A, R).
+
+maxclique(N, Cliques) :- findall(L, (clique(L) , length(L, N)), L1), X is N+1, findall(L, (clique(L) , length(L, X)), L2) , findall(S, issubset(S, L2), L3), xdiff(L1, L3, Cliques).
